@@ -1,4 +1,4 @@
-psycopg
+psycopg2
 flask-restful
 flask
 requests

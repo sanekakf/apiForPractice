@@ -1,13 +1,13 @@
 from flask import Flask
 from flask_restful import Api, Resource, reqparse
-import psycopg
+import psycopg2
 
 
 app = Flask(__name__)
 api = Api(app)
 
 # Connect db
-conn = psycopg.connect(dbname="requests",
+conn = psycopg2.connect(dbname="requests",
                        user="me1",
                        password="99@leX216",
                        host="89.223.68.159",
