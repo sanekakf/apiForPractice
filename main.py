@@ -61,5 +61,9 @@ class RepairRequests(Resource):
 api.add_resource(RepairRequests, '/api/repair_requests')
 api.init_app(app)
 
+@app.route("/")
+def hello():
+    return "Timeweb Cloud + Flask = ❤️"
+
 if __name__ == '__main__':
     app.run(debug=True)
