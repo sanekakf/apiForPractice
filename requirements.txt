@@ -1,4 +1,0 @@
-psycopg
-flask-restful
-flask
-requests
