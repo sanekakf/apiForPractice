@@ -1,2 +1,5 @@
 psycopg
 flask-restful
+requests
+beautifulsoup4 
+pandas
