@@ -1,3 +1,3 @@
 import requests
-res = requests.get("http://127.0.0.1:8000/api/main")
+res = requests.get("http://77.232.139.226:8080/api/repair_requests")
 print(res.json())
