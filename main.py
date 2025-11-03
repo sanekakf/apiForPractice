@@ -6,19 +6,20 @@ app = Flask(__name__)
 api = Api(app)
 
 # Connect db
-conn = psycopg.connect(dbname="requests",
-                       user="me1",
-                       password="99@leX216",
-                       host="89.223.68.159",
-                       port="5432"
-                       )
-c = conn.cursor()
+
 
 
 class RepairRequests(Resource):
     res = {}
 
     def get(self):
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432"
+                               )
+        c = conn.cursor()
         c.execute("select * from repair_requests")
         for item in c.fetchall():
             l = len(self.res)
@@ -35,6 +36,7 @@ class RepairRequests(Resource):
                                "completionTime": item[8],
                                "completionDate": item[9]
                                }
+        conn.close()
         return self.res
 
     def post(self):
