@@ -10,9 +10,10 @@ api = Api(app)
 
 
 class RepairRequests(Resource):
-    res = {}
+
 
     def get(self):
+        res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
                                password="99@leX216",
