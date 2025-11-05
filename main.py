@@ -23,10 +23,10 @@ class RepairRequests(Resource):
         c = conn.cursor()
         c.execute("select * from repair_requests")
         for item in c.fetchall():
-            l = len(self.res)
+            l = len(res)
             print(item)
 
-            self.res[l + 1] = {"id": item[0],
+            res[l + 1] = {"id": item[0],
                                "ownerName": item[1],
                                "phoneNumber": item[2],
                                "carModel": item[3],
@@ -38,7 +38,7 @@ class RepairRequests(Resource):
                                "completionDate": item[9]
                                }
         conn.close()
-        return self.res
+        return res
 
     def post(self):
         parser = reqparse.RequestParser()
