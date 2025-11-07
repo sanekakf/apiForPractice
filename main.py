@@ -105,6 +105,31 @@ class PaintingRequests(Resource):
         conn.close()
         return res
 
+    def post(self):
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432")
+        c = conn.cursor()
+        parser = reqparse.RequestParser()
+        parser.add_argument("ownerName", type=str)
+        parser.add_argument("phoneNumber", type=str)
+        parser.add_argument("carModel", type=str)
+        parser.add_argument("color", type=str, required=False)
+        parser.add_argument("date", type=str)
+        args = parser.parse_args()
+        c.execute("""
+            INSERT INTO public.painting_requests("ownerName", "phoneNumber", "carModel", "color", "date") VALUES(%s,%s,%s,%s,%s)
+        """,(
+            args["ownerName"],
+            args["phoneNumber"],
+            args["carModel"],
+            args["color"],
+            args["date"]
+        ))
+        conn.commit()
+        c.close()
 
 api.add_resource(RepairRequests, '/api/repair_requests')
 api.add_resource(PaintingRequests, '/api/painting_requests')
