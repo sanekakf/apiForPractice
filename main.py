@@ -23,7 +23,6 @@ class RepairRequests(Resource):
         c.execute("select * from repair_requests")
         for item in c.fetchall():
             l = len(res)
-            print(item)
 
             res[l + 1] = {"id": item[0],
                           "ownerName": item[1],
@@ -38,6 +37,46 @@ class RepairRequests(Resource):
                           }
         conn.close()
         return res
+
+    def post(self):
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432")
+        c = conn.cursor()
+        parser = reqparse.RequestParser()
+        parser.add_argument("ownerName", type=str)
+        parser.add_argument("phoneNumber", type=str)
+        parser.add_argument("carModel", type=str)
+        parser.add_argument("issueDescription", type=str, required=False)
+        parser.add_argument("date", type=str)
+        parser.add_argument("time", type=str)
+        args = parser.parse_args()
+        if args["issueDescription"]:
+            match args["issueDescription"]:
+                case "":
+                    args["issueDescription"] = "Не указана"
+                case None:
+                    args["issueDescription"] = "Не указана"
+                case " ":
+                    args["issueDescription"] = "Не указана"
+        else:
+            args["issueDescription"]="Не указана"
+
+        c.execute(
+            """INSERT INTO public.repair_requests("ownerName", "phoneNumber", "carModel", "issueDescription","date", "time") VALUES(%s,%s,%s,%s,%s,%s)""",
+            (args["ownerName"],
+             args["phoneNumber"],
+             args["carModel"],
+             args["issueDescription"],
+             args["date"],
+             args["time"]
+             )
+        )
+        conn.commit()
+        c.close()
+
 
 class PaintingRequests(Resource):
 
