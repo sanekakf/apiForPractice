@@ -11,7 +11,7 @@ api = Api(app)
 
 class RepairRequests(Resource):
 
-    def get(self):
+    def get(self, status):
         res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
@@ -20,7 +20,12 @@ class RepairRequests(Resource):
                                port="5432"
                                )
         c = conn.cursor()
-        c.execute("select * from repair_requests")
+        if status == 0:
+            c.execute("select * from repair_requests")
+        elif status == 1:
+            c.execute(f"""select * from repair_requests where status = 'в работе' """)
+        elif status == 2:
+            c.execute("""select * from repair_requests where status = 'выполнено' """)
         for item in c.fetchall():
             l = len(res)
 
@@ -77,10 +82,54 @@ class RepairRequests(Resource):
         conn.commit()
         c.close()
 
+class DeleteRepairRequests(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id", type=int)
+        args = parser.parse_args()
+        print(args)
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432")
+        c = conn.cursor()
+        c.execute(f"""DELETE FROM public.repair_requests WHERE id = {args["id"]}""")
+        conn.commit()
+        c.close()
+
+    def get(self):
+        return {"result":"deleted"}
+
+class DoneRepairRequests(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument(
+            "id", type=int
+        )
+        args = parser.parse_args()
+        print(args)
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432")
+        c = conn.cursor()
+        c.execute(f"""
+                    UPDATE public.repair_requests 
+                    SET status = 'выполнено'
+                    WHERE id = {args["id"]}
+        """)
+        conn.commit()
+        c.close()
+
+class EditRepairRequests(Resource):
+    def post(self):
+        pass
 
 class PaintingRequests(Resource):
 
-    def get(self):
+    def get(self, status):
         res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
@@ -89,7 +138,12 @@ class PaintingRequests(Resource):
                                port="5432"
                                )
         c = conn.cursor()
-        c.execute("select * from painting_requests")
+        if status == 0:
+            c.execute("select * from painting_requests")
+        elif status == 1:
+            c.execute(f"""select * from painting_requests where status = 'в работе' """)
+        elif status == 2:
+            c.execute("""select * from painting_requests where status = 'выполнено' """)
         for item in c.fetchall():
             l = len(res)
             print(item)
@@ -131,14 +185,41 @@ class PaintingRequests(Resource):
         conn.commit()
         c.close()
 
-api.add_resource(RepairRequests, '/api/repair_requests')
+class DeletePaintingRequests(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id", type=int)
+        args = parser.parse_args()
+        print(args)
+        conn = psycopg.connect(dbname="requests",
+                               user="me1",
+                               password="99@leX216",
+                               host="89.223.68.159",
+                               port="5432")
+        c = conn.cursor()
+        c.execute(f"""DELETE FROM public.painting_requests WHERE id = {args["id"]}""")
+        conn.commit()
+        c.close()
+
+class DonePaintingRequests(Resource):
+    def get(self):
+        pass
+
+class EditPaintingRequests(Resource):
+    def post(self):
+        pass
+
+api.add_resource(RepairRequests, '/api/repair_requests/<int:status>')
+api.add_resource(DeleteRepairRequests, '/api/repair_requests/delete')
+api.add_resource(DoneRepairRequests, '/api/repair_requests/done')
+api.add_resource(EditRepairRequests, '/api/repair_requests/edit')
 api.add_resource(PaintingRequests, '/api/painting_requests')
 api.init_app(app)
 
 
 @app.route("/")
 def hello():
-    return "Timeweb Cloud + Flask = ❤️"
+    return "Салтыков + Аферов = 😎"
 
 
 if __name__ == '__main__':
