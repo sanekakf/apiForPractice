@@ -11,7 +11,7 @@ api = Api(app)
 
 class RepairRequests(Resource):
 
-    def get(self, status):
+    def get(self, status=0):
         res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
@@ -129,7 +129,7 @@ class EditRepairRequests(Resource):
 
 class PaintingRequests(Resource):
 
-    def get(self, status):
+    def get(self, status=0):
         res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
