@@ -213,7 +213,7 @@ api.add_resource(RepairRequests, '/api/repair_requests/<int:status>')
 api.add_resource(DeleteRepairRequests, '/api/repair_requests/delete')
 api.add_resource(DoneRepairRequests, '/api/repair_requests/done')
 api.add_resource(EditRepairRequests, '/api/repair_requests/edit')
-api.add_resource(PaintingRequests, '/api/painting_requests')
+api.add_resource(PaintingRequests, '/api/painting_requests/<int:status>')
 api.init_app(app)
 
 
