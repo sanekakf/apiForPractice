@@ -11,7 +11,7 @@ api = Api(app)
 
 class RepairRequests(Resource):
 
-    def get(self, status=0):
+    def get(self):
         res = {}
         conn = psycopg.connect(dbname="requests",
                                user="me1",
@@ -20,12 +20,8 @@ class RepairRequests(Resource):
                                port="5432"
                                )
         c = conn.cursor()
-        if status == 0:
-            c.execute("select * from repair_requests")
-        elif status == 1:
-            c.execute(f"""select * from repair_requests where status = 'в работе' """)
-        elif status == 2:
-            c.execute("""select * from repair_requests where status = 'выполнено' """)
+        
+        c.execute("select * from repair_requests")
         for item in c.fetchall():
             l = len(res)
 
@@ -138,12 +134,9 @@ class PaintingRequests(Resource):
                                port="5432"
                                )
         c = conn.cursor()
-        if status == 0:
-            c.execute("select * from painting_requests")
-        elif status == 1:
-            c.execute(f"""select * from painting_requests where status = 'в работе' """)
-        elif status == 2:
-            c.execute("""select * from painting_requests where status = 'выполнено' """)
+        
+        c.execute("select * from painting_requests")
+        
         for item in c.fetchall():
             l = len(res)
             print(item)
@@ -209,11 +202,11 @@ class EditPaintingRequests(Resource):
     def post(self):
         pass
 
-api.add_resource(RepairRequests, '/api/repair_requests/<int:status>')
+api.add_resource(RepairRequests, '/api/repair_requests')
 api.add_resource(DeleteRepairRequests, '/api/repair_requests/delete')
 api.add_resource(DoneRepairRequests, '/api/repair_requests/done')
 api.add_resource(EditRepairRequests, '/api/repair_requests/edit')
-api.add_resource(PaintingRequests, '/api/painting_requests/<int:status>')
+api.add_resource(PaintingRequests, '/api/painting_requests')
 api.init_app(app)
 
 
