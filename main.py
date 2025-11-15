@@ -59,12 +59,11 @@ class RepairRequests(Resource):
         parser.add_argument("time", type=str)
         args = parser.parse_args()
         if args["issueDescription"]:
-            match args["issueDescription"]:
-                case "":
+            if args["issueDescription"] == "":
                     args["issueDescription"] = "Не указана"
-                case None:
+            if args["issueDescription"] is None:
                     args["issueDescription"] = "Не указана"
-                case " ":
+            if args["issueDescription"] == " ":
                     args["issueDescription"] = "Не указана"
         else:
             args["issueDescription"]="Не указана"
