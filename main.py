@@ -14,11 +14,10 @@ class RepairRequests(Resource):
     def get(self):
         res = {}
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
-                               port="5432"
-                               )
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
+                               port="5432")
         c = conn.cursor()
         
         c.execute("select * from repair_requests")
@@ -41,9 +40,9 @@ class RepairRequests(Resource):
 
     def post(self):
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
                                port="5432")
         c = conn.cursor()
         parser = reqparse.RequestParser()
@@ -84,9 +83,9 @@ class DeleteRepairRequests(Resource):
         args = parser.parse_args()
         print(args)
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
                                port="5432")
         c = conn.cursor()
         c.execute(f"""DELETE FROM public.repair_requests WHERE id = {args["id"]}""")
@@ -105,9 +104,9 @@ class DoneRepairRequests(Resource):
         args = parser.parse_args()
         print(args)
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
                                port="5432")
         c = conn.cursor()
         c.execute(f"""
@@ -127,11 +126,10 @@ class PaintingRequests(Resource):
     def get(self, status=0):
         res = {}
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
-                               port="5432"
-                               )
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
+                               port="5432")
         c = conn.cursor()
         
         c.execute("select * from painting_requests")
@@ -153,9 +151,9 @@ class PaintingRequests(Resource):
 
     def post(self):
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
                                port="5432")
         c = conn.cursor()
         parser = reqparse.RequestParser()
@@ -184,9 +182,9 @@ class DeletePaintingRequests(Resource):
         args = parser.parse_args()
         print(args)
         conn = psycopg.connect(dbname="requests",
-                               user="me1",
-                               password="99@leX216",
-                               host="89.223.68.159",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
                                port="5432")
         c = conn.cursor()
         c.execute(f"""DELETE FROM public.painting_requests WHERE id = {args["id"]}""")
