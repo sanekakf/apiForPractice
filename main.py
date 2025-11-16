@@ -81,7 +81,6 @@ class DeleteRepairRequests(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("id", type=int)
         args = parser.parse_args()
-        print(args)
         conn = psycopg.connect(dbname="requests",
                                user="sanekakf",
                                password="99mir216",
@@ -102,7 +101,6 @@ class DoneRepairRequests(Resource):
             "id", type=int
         )
         args = parser.parse_args()
-        print(args)
         conn = psycopg.connect(dbname="requests",
                                user="sanekakf",
                                password="99mir216",
@@ -136,7 +134,7 @@ class PaintingRequests(Resource):
         
         for item in c.fetchall():
             l = len(res)
-            print(item)
+
 
             res[l + 1] = {"id": item[0],
                           "ownerName": item[1],
@@ -180,7 +178,6 @@ class DeletePaintingRequests(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("id", type=int)
         args = parser.parse_args()
-        print(args)
         conn = psycopg.connect(dbname="requests",
                                user="sanekakf",
                                password="99mir216",
