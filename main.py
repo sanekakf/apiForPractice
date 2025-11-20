@@ -132,7 +132,6 @@ class EditRepairRequests(Resource):
         parser.add_argument("time", type=str)
         parser.add_argument("id",type=int)
         args = parser.parse_args()
-        print(args["id"])
 
         c.execute(
             """UPDATE repair_requests
