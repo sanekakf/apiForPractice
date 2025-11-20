@@ -136,13 +136,13 @@ class EditRepairRequests(Resource):
 
         c.execute(
             """UPDATE repair_requests
-            SET ownerName = %s,
-            phoneNumber = %s,
-            carModel = %s,
-            issueDescription = %s,
-            date = %s,
-            time = %s
-            WHERE id = %s""",
+            SET "ownerName" = %s,
+            "phoneNumber" = %s,
+            "carModel" = %s,
+            "issueDescription" = %s,
+            "date" = %s,
+            "time" = %s
+            WHERE "id" = %s""",
             (args["ownerName"],
              args["phoneNumber"],
              args["carModel"],
