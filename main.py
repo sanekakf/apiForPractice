@@ -143,7 +143,7 @@ class EditRepairRequests(Resource):
              args["issueDescription"],
              args["date"],
              args["time"],
-             args[id]
+             args["id"]
              )
         )
         conn.commit()
