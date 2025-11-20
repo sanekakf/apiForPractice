@@ -132,15 +132,16 @@ class EditRepairRequests(Resource):
         parser.add_argument("time", type=str)
         parser.add_argument("id",type=int)
         args = parser.parse_args()
+        print(args["id"])
 
         c.execute(
-            """UPDATE public.repair_requests
-            SET 'ownerName' = %s, 
-            SET 'phoneNumber' = %s,
-            SET 'carModel' = %s,
-            SET 'issueDescription' = %s,
-            SET 'date' = %s,
-            SET 'time' = %s
+            """UPDATE repair_requests
+            SET ownerNam' = %s, 
+            SET phoneNumber = %s,
+            SET carModel = %s,
+            SET issueDescription = %s,
+            SET date = %s,
+            SET time = %s
             WHERE 'id' = %s""",
             (args["ownerName"],
              args["phoneNumber"],
