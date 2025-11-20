@@ -230,7 +230,40 @@ class DonePaintingRequests(Resource):
 
 class EditPaintingRequests(Resource):
     def post(self):
-        pass
+        conn = psycopg.connect(dbname="requests",
+                               user="sanekakf",
+                               password="99mir216",
+                               host="95.31.5.158",
+                               port="5432")
+        c = conn.cursor()
+        parser = reqparse.RequestParser()
+        parser.add_argument("ownerName", type=str)
+        parser.add_argument("phoneNumber", type=str)
+        parser.add_argument("carModel", type=str)
+        parser.add_argument("color", type=str, required=False)
+        parser.add_argument("date", type=str)
+        parser.add_argument("id", type=int)
+        args = parser.parse_args()
+
+        c.execute(
+            """UPDATE painting_requests
+            SET "ownerName" = %s,
+            "phoneNumber" = %s,
+            "carModel" = %s,
+            "color" = %s,
+            "date" = %s
+            WHERE "id" = %s""",
+            (args["ownerName"],
+             args["phoneNumber"],
+             args["carModel"],
+             args["color"],
+             args["date"],
+             args["id"]
+             )
+        )
+        conn.commit()
+        c.close()
+
 
 api.add_resource(RepairRequests, '/api/repair_requests')
 api.add_resource(DeleteRepairRequests, '/api/repair_requests/delete')
